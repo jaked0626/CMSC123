@@ -9,6 +9,10 @@ visiteelast_i = first_line.split(",").index("visitee_namelast")
 class MRGuestAndStaff(MRJob):
     
     def mapper(self, _, line):
+        '''
+        staff and guest names as key, "S" and "G" as indicators of 
+        status for values
+        '''
         info = line.split(",")
 
         if info[visiteelast_i] and info[visiteelast_i + 1]:  # not empty
@@ -22,6 +26,10 @@ class MRGuestAndStaff(MRJob):
     # should there be a combiner? 
 
     def reducer(self, name, status): 
+        '''
+        goes through generator, inspects each status value, and 
+        breaks loop as soon as it is clear person has both
+        '''
         guest_or_staff = set()
         for x in status: 
             guest_or_staff.add(x)

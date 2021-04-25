@@ -10,6 +10,9 @@ year_i = first_line.split(",").index("APPT_START_DATE")
 class MRVisitedBothYears(MRJob):
     
     def mapper(self, _, line):
+        '''
+        yields name as key, year as value
+        '''
         info = line.split(",")
         year = re.search(r"2009|2010", info[year_i]) # only pulls 2009 or 2010
         name = ", ".join(info[:2]).strip(", ")
@@ -22,6 +25,11 @@ class MRVisitedBothYears(MRJob):
             yield None, name """
     
     def reducer(self, name, year): 
+        '''
+        iterates through generator for each name, adds years to a set
+        and as soon as it is clear the set contains both 2009 and 2010, 
+        breaks loop and yields name 
+        '''
         years = set()
         for x in year: 
             years.add(x)
