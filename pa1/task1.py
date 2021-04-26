@@ -9,7 +9,7 @@ class MRVisitorsCount(MRJob):
         info = line.split(",")
         if info[0] or info[1]:  # First name or last name is written down
             name = ", ".join(info[:2]).strip(", ")  # remove commas and spaces
-        yield name, 1
+            yield name, 1
 
     def combiner(self, name, counts):
         yield name, sum(counts)

@@ -1,11 +1,15 @@
 from mrjob.job import MRJob
 import re
 
+# Defining global variable to index year
+
 with open("data.csv", "r") as f:
     first_line = f.readline()
     f.close()
 
 year_i = first_line.split(",").index("APPT_START_DATE")
+
+# Map Reduce code
 
 class MRVisitedBothYears(MRJob):
     
@@ -19,10 +23,19 @@ class MRVisitedBothYears(MRJob):
         if year and name:
             yield name, year.group(0)
 
-    """ def reducer(self, name, year):
+    def combiner(self, name, year):
+        '''
+        Takes name and subset of years associated with name and checks 
+        for both 2009 and 2010. If both exist in the subset, yields name
+        and string "Both" to send to reducer. Otherwise, sends name and the 
+        year found in the subset. 
+        '''
         years = set(year)
         if len(years) > 1:
-            yield None, name """
+            yield name, "Both"
+        else:
+            year = years.pop()
+            yield name, year
     
     def reducer(self, name, year): 
         '''
@@ -33,7 +46,7 @@ class MRVisitedBothYears(MRJob):
         years = set()
         for x in year: 
             years.add(x)
-            if len(years) > 1: 
+            if "Both" in years or len(years) > 1: 
                 yield None, name
                 break  # does this break function even for generators? 
 

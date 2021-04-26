@@ -1,10 +1,15 @@
 from mrjob.job import MRJob
 
+
+# Defining global variable to index visitee name
+
 with open("data.csv", "r") as f:
     first_line = f.readline()
     f.close()
 
 visiteelast_i = first_line.split(",").index("visitee_namelast")
+
+# Map Reduce code
 
 class MRGuestAndStaff(MRJob):
     
@@ -23,7 +28,19 @@ class MRGuestAndStaff(MRJob):
             guest_name = ", ".join(info[:2]).strip()
             yield guest_name, "G"
     
-    # should there be a combiner? 
+    def combiner(self, name, status):
+        '''
+        Takes name and subset of statuses associated with name and checks 
+        for both "G" and "S". If both exist in the subset, yields name
+        and string "Both" to send to reducer. Otherwise, sends name and the 
+        status found in the subset. 
+        '''
+        guest_staff = set(status)
+        if len(guest_staff) >1:
+            yield name, "Both"
+        else:
+            stat = guest_staff.pop()
+            yield name, stat
 
     def reducer(self, name, status): 
         '''
@@ -33,7 +50,7 @@ class MRGuestAndStaff(MRJob):
         guest_or_staff = set()
         for x in status: 
             guest_or_staff.add(x)
-            if len(guest_or_staff) > 1: 
+            if "Both" in guest_or_staff or len(guest_or_staff) > 1: 
                 yield None, name
                 break
 

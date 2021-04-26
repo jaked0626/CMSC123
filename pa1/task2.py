@@ -1,11 +1,15 @@
 from mrjob.job import MRJob
 import heapq
 
+# Defining global variable to index visitee name
+
 with open("data.csv", "r") as f:
     first_line = f.readline()
     f.close()
 
 visiteelast_i = first_line.split(",").index("visitee_namelast")
+
+# Map Reduce code
 
 class MRTop10Visitees(MRJob):
     
