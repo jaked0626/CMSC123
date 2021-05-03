@@ -1,0 +1,41 @@
+Points:
+    - Task 1 correctness:
+        Points Possible: 20
+        Points Obtained: 20
+
+    - Task 1 combiner:
+        Points Possible: 5
+        Points Obtained: 5
+
+    - Task 2 correctness:
+        Points Possible: 15
+        Points Obtained: 14
+
+    - Task 2 heap:
+        Points Possible: 5
+        Points Obtained: 5
+
+    - Task 2 combiner:
+        Points Possible: 5
+        Points Obtained: 5
+
+    - Task 3 correctness:
+        Points Possible: 20
+        Points Obtained: 20
+
+    - Task 3 combiner:
+        Points Possible: 5
+        Points Obtained: 5
+
+    - Task 4 correctness:
+        Points Possible: 20
+        Points Obtained: 19
+
+    - Task 4 combiner:
+        Points Possible: 5
+        Points Obtained: 5
+
+Total Points: 98 / 100
+
+Comments: >
+    Great work at applying mappers, reducers, and combiners!

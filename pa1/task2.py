@@ -3,6 +3,10 @@ import heapq
 
 # Defining global variable to index visitee name
 
+### GRADER COMMENT
+# Note that your code should not rely on any hardcoded file names,
+# as we cannot test out your program otherwise (-1)
+        
 with open("data.csv", "r") as f:
     first_line = f.readline()
     f.close()
@@ -36,6 +40,8 @@ class MRTop10Visitees(MRJob):
         '''
         sums counts of visits per staff, updates max heap
         '''
+        ### GRADER COMMENT
+        # Well done on using a heap here!
         num_visits = sum(counts)
         if num_visits >= self.max_heap[0][0]:  # value of min visits in heap
             heapq.heapreplace(self.max_heap, (num_visits, name))

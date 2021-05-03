@@ -3,6 +3,10 @@ from mrjob.job import MRJob
 
 # Defining global variable to index visitee name
 
+### GRADER COMMENT
+# Please do not hardcode references to file names, as we cannot
+# run tests otherwise. Is there a way to define your global variable otherwise? (-1)
+
 with open("data.csv", "r") as f:
     first_line = f.readline()
     f.close()

@@ -26,5 +26,7 @@ class MRVisitorsCount(MRJob):
 
 
 
-
+### GRADER COMMENT
+# Please put the run command on a new line, as one-line block statements
+# are generally considered poor style
 if __name__ == '__main__': MRVisitorsCount.run()

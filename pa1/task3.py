@@ -50,4 +50,9 @@ class MRVisitedBothYears(MRJob):
                 yield None, name
                 break  # does this break function even for generators? 
 
+                ### GRADER COMMENT
+                # Good question! The break exits the for loop for the current name generator,
+                # but it's essentially redundant for a given name because you yield at most
+                # one value for a name
+
 if __name__ == '__main__': MRVisitedBothYears.run()
