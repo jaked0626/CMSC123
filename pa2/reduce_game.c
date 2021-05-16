@@ -19,18 +19,18 @@
  *   int j: index of a row
  *   int ncol: number of columns
  */
-int compare_rows(double **player1, int i, int j, int ncol) {
+int compare_rows(double **player1, int row_i, int row_j, int ncol) {
   int res;
   int u;
   int l;
-  if (player1[i][0] > player1[j][0]) {
-    res = j;
-    u = i; // check if row i is strictly greater than row j
-    l = j;
-  } else if (player1[i][0] < player1[j][0]) {
-    res = i;
-    u = j; // check if row j is strictly greater than row i
-    l = i;
+  if (player1[row_i][0] > player1[row_j][0]) {
+    res = row_j;
+    u = row_i; // check if row i is strictly greater than row j
+    l = row_j;
+  } else if (player1[row_i][0] < player1[row_j][0]) {
+    res = row_i;
+    u = row_j; // check if row j is strictly greater than row i
+    l = row_i;
   } else {
     res = -1; // no rows to be deleted
     return res;
@@ -58,9 +58,7 @@ void iterate_rows(game_t g) {
       if (x == i) {
         remove_row_game(g, x);
         i--; // decrement i since rows move up
-        break;
-        // break loop of j
-        // dont increment i since rows shifted via row removal
+        break; // break loop of j, move to next i
       }
       else if (x == j) {
         remove_row_game(g, x);
@@ -82,18 +80,18 @@ void iterate_rows(game_t g) {
  *   int j: index of a col
  *   int nrow: number of rows
  */
-int compare_cols(double **player2, int i, int j, int nrow) {
+int compare_cols(double **player2, int col_i, int col_j, int nrow) {
   int res;
   int u;
   int l;
-  if (player2[0][i] > player2[0][j]) {
-    res = j;
-    u = i; // check if col i is strictly greater than col j
-    l = j;
-  } else if (player2[0][i] < player2[0][j]) {
-    res = i;
-    u = j; // check if col j is strictly greater than col i
-    l = i;
+  if (player2[0][col_i] > player2[0][col_j]) {
+    res = col_j;
+    u = col_i; // check if col i is strictly greater than col j
+    l = col_j;
+  } else if (player2[0][col_i] < player2[0][col_j]) {
+    res = col_i;
+    u = col_j; // check if col j is strictly greater than col i
+    l = col_i;
   } else {
     res = -1; // no cols to be deleted
     return res;
@@ -121,9 +119,7 @@ void iterate_cols(game_t g) {
       if (x == i) {
         remove_col_game(g, x);
         i--; // decrement i since cols move up
-        break;
-        // break loop of j
-        // dont increment i since cols shifted via col removal
+        break; // break loop of j, move i to next col
       }
       else if (x == j) {
         remove_col_game(g, x);
@@ -148,18 +144,14 @@ void one_sweep (game_t g) {
   //print_game(g);
 }
 
-
-
 /* reduce: iteratively reduce rows and columns until no changes occur.
  *  game_t g: the game
  *
  *  Modifies the game, if there are rows or columns that can be reduced.
  */
 void reduce(game_t g) {
-  int old_n = -1;
-  int old_m = -1;
-  while ((g->n != old_n) && (g->m != old_m)) {
-    old_n = g->n;
+  int old_m = -1;  // check for change in cols. If there is, redo sweep.
+  while (g->m != old_m) {
     old_m = g->m;
     one_sweep(g);
   }
