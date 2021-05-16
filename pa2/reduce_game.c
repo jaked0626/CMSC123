@@ -50,8 +50,6 @@ int compare_rows(double **player1, int i, int j, int ncol) {
  *  game_t g: game 
  */
 void iterate_rows(game_t g) {
-  // unsigned int nrow = g->n;
-  // unsigned int mcol = g->m;
   int i = 0;
   while(i < (g->n - 1)) {
     int j = i + 1;
@@ -115,8 +113,6 @@ int compare_cols(double **player2, int i, int j, int nrow) {
  *  game_t g: game 
  */
 void iterate_cols(game_t g) {
-  // unsigned int nrow = g->n;
-  // unsigned int mcol = g->m;
   int i = 0;
   while(i < (g->m - 1)) {
     int j = i + 1;
