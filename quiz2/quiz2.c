@@ -24,20 +24,81 @@ char* bool_str(bool b) {
 }
 
 
+bool compare_row_col(matrix_t mtx, int r, int c) {
+    // compare row r and col c
+    bool res = true;
+    unsigned int k;
+    unsigned int dim = mtx->n; // num of rows and cols, must be equal
+    for (k = 0; k < dim; k++) {
+        if (mtx->elements[r][k] != mtx->elements[k][c]){
+            res = false;
+            return res;
+        }
+    }
+    return res;
+}
+
 bool row_matches_col(matrix_t mtx) {
-    // YOUR CODE HERE
+    bool res = false;
+    if (mtx->n != mtx->m) {
+        return res;
+    } else { 
+        int i, j;
+        for (i = 0; i < mtx->n; i++) {
+            for (j = 0; j < mtx->m; j++) {
+                if (compare_row_col(mtx, i, j)){
+                    res = true;
+                    return res;
+                }
+            }
+        }
+        return res;
+    }
 }
 
 bool col_palindrome(matrix_t mtx, unsigned int c) {
-    // YOUR CODE HERE
+    bool res = true;
+    int tail = mtx->n - 1; // last index of col
+    int i;
+    for (i = 0; i < tail / 2; i++) {
+        if (mtx->elements[i][c] != mtx->elements[tail - i][c]) {
+            res = false;
+            return res;
+        }
+    }
+    return res;
 }
 
 void alternator(matrix_t mtx) {
-    // YOUR CODE HERE
+    int i, j;
+    for (i = 0; i < mtx->n; i++) {
+        for (j = 0; j < mtx->m; j++) {
+            if (i % 2 == j % 2) {
+                mtx->elements[i][j] = 0;
+            } else {
+                mtx->elements[i][j] = 1;
+            }
+        }
+    }
+}
+
+bool one_row_run(matrix_t mtx, unsigned int r, unsigned int run){
+    int i = 0;
+    int num_col = mtx->m;
+    bool res  =false;
+    while (i < num_col) {
+        double run_val = mtx->elements[r][i]
+        while(mtx->elements[r][i] == run_val) {
+            i++
+        }
+    }
 }
 
 bool horiz_run(matrix_t mtx, unsigned int run) {
-    // YOUR CODE HERE
+    int i;
+    for (i = 0; i < mtx->n; i++){
+        if (one_row_run())
+    }
 }
 
 
