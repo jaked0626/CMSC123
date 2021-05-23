@@ -82,23 +82,35 @@ void alternator(matrix_t mtx) {
     }
 }
 
-bool one_row_run(matrix_t mtx, unsigned int r, unsigned int run){
+bool one_row_run (matrix_t mtx, unsigned int r, unsigned int run) {
     int i = 0;
     int num_col = mtx->m;
-    bool res  =false;
+    bool res = false;
     while (i < num_col) {
-        double run_val = mtx->elements[r][i]
-        while(mtx->elements[r][i] == run_val) {
-            i++
+        int current_run = 0;
+        double run_val = mtx->elements[r][i];
+        while (i < num_col && mtx->elements[r][i] == run_val) {
+            current_run++;
+            if (current_run >= run) {
+                res = true;
+                return res;
+            }
+            i++;
         }
     }
+    return res;
 }
 
 bool horiz_run(matrix_t mtx, unsigned int run) {
     int i;
-    for (i = 0; i < mtx->n; i++){
-        if (one_row_run())
+    bool res = false;
+    for (i=0; i < mtx->n; i++) {
+        if (one_row_run(mtx, i, run)){
+            res = true;
+            return res;
+        }
     }
+    return res;
 }
 
 
@@ -112,6 +124,15 @@ int main(int argc, char** argv) {
     struct matrix_s mtxs = {5, 5, elems};
     matrix_t mtx = &mtxs;
 
+    int row20[] = {1, 1, 1, 1};
+    int row21[] = {1, 22, 23, 24};
+    int row22[] = {1, 24, 24, 24};
+    int row23[] = {1, 23, 24, 24};
+    int row24[] = {1, 51, 53, 14};
+    int* elems2[] = {row20, row21, row22, row23, row24};
+    struct matrix_s mtxs2 = {5, 4, elems2};
+    matrix_t mtx2 = &mtxs2;
+
     printf("row_matches_col: %s\n", bool_str(row_matches_col(mtx)));
     
     printf("col_palindrome (A): %s\n", bool_str(col_palindrome(mtx, 3)));
@@ -123,6 +144,19 @@ int main(int argc, char** argv) {
     printf("alternator:\n");
     alternator(mtx);
     print_matrix(mtx);
+    printf("\n");
+
+    printf("row_matches_col: %s\n", bool_str(row_matches_col(mtx2)));
+    
+    printf("col_palindrome (A): %s\n", bool_str(col_palindrome(mtx2, 0)));
+    printf("col_palindrome (B): %s\n", bool_str(col_palindrome(mtx2, 1)));
+    
+    printf("horiz_run (3): %s\n", bool_str(horiz_run(mtx2, 3)));
+    printf("horiz_run (4): %s\n", bool_str(horiz_run(mtx2, 4)));
+    
+    printf("alternator:\n");
+    alternator(mtx2);
+    print_matrix(mtx2);
     printf("\n");
 
     return 0;
