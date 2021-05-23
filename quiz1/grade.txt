@@ -1,0 +1,25 @@
+CMSC 12300, Spring 2021
+Quiz 1
+
+Problem 1: Set of Airports
+Looks good
+5/5
+
+Problem 2: Average Temperatures
+Use a combiner to sum the numerator and denominator of the average at each node. -2
+8/10
+
+Problem 3: Number of Airports
+Great
+10/10
+
+Problem 4: Warmer than Yesterday
+Great
+10/10
+
+Problem 5: Histogram
+Excellent
+15/15
+
+
+TOTAL 48/50
