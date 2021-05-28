@@ -20,6 +20,10 @@ typedef struct USAGovClickData {
 
 	// Number of clicks from new users
 	int numNew;
+
+	// enable locking
+	pthread_mutex_t m;
+
 } USAGovClickData;
 
 // Constructor

@@ -29,8 +29,10 @@ void data_free(USAGovClickData* t) {
 }
 
 void data_update(USAGovClickData*t, USAGovClick* click) {
+    pthread_mutex_lock(&t->m);
     t->numClicks++;
     if (!click->known) {
 		t->numNew++;
     }
+    pthread_mutex_unlock(&t->m); // added lock to update function 
 }

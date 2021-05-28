@@ -96,9 +96,25 @@ void pool_free(ThreadPool* t) {
 
 bool pool_schedule(ThreadPool* t, USAGovClickTask *task) {
 	/* YOUR CODE GOES HERE */
-    return false; /* placeholder, replace this: don't always return false */
+    if (queue_length(t->q) >= MAX_TASKS) {
+        return false; // drop task
+    } else {
+        pthread_mutex_lock(&t->m); // lock pool thread (queue) 
+        queue_enqueue(t->q, task); // push to queue
+        // conditional for if queue is empty?
+        pthread_mutex_unlock(&t->m);
+        pthread_cond_signal(&t->cvQueueNonEmpty);
+        return true;
+    }
 }
 
-void pool_stop(ThreadPool* t) {
-	/* YOUR CODE GOES HERE */
-}
+/*void pool_stop(ThreadPool* t) {
+	/* YOUR CODE GOES HERE 
+    bool res;
+    int i;
+    for (i = 0; i < t->numWorkers; i++) {
+        pthread_cond_signal(&t->cvQueueNonEmpty);
+        pthread_join(t)
+    }
+    
+}*/

@@ -34,8 +34,24 @@ void worker_start(WorkerThread* t) {
 
 void* worker_run(void* tv) {
     WorkerThread* t = (WorkerThread*)tv;
-    
+    ThreadPool* pool = t->pool;
+
     /* YOUR CODE GOES HERE */
+    while(1){
+        pthread_mutex_lock(&pool->m);
+        while (queue_length(pool->q) <= 0) { // queue is empty
+            pthread_cond_wait(&pool->cvQueueNonEmpty,
+                            &pool->m); /* wakes up if nonempty, 
+                                            checks to see again if nonempty, 
+                                            and moves on. 
+                                            Repeats check while -> unlock -> sleep 
+                                            -> wake -> lock -> check while -> 
+                                            run -> unlock */
+        }
+        USAGovClickTask* task = queue_dequeue(pool->q); // queue is locked at this point
+        pthread_mutex_unlock(&pool->m);
+        task_run(task);
+    }
     
     return NULL;
 }
