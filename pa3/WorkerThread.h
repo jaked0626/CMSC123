@@ -25,6 +25,7 @@ typedef struct WorkerThread {
 
 	// The actual thread
 	pthread_t thd;
+
 } WorkerThread;
 
 // Constructor

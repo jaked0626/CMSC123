@@ -40,7 +40,8 @@ void* worker_run(void* tv) {
         pthread_mutex_lock(&pool->m);
         while (queue_length(pool->q) <= 0 && !pool->stop) { // queue is empty
             pthread_cond_wait(&pool->cvQueueNonEmpty,
-                            &pool->m); 
+                            &pool->m);
+            // printf("stopped waiting\n"); 
             if(pool->stop) {
                 pthread_mutex_unlock(&pool->m);
                 return NULL; // conditional to break function when pool_stop is called
@@ -50,6 +51,5 @@ void* worker_run(void* tv) {
         pthread_mutex_unlock(&pool->m);
         task_run(task);
     }
-    
     return NULL;
 }

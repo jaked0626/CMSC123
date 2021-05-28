@@ -97,13 +97,12 @@ void pool_free(ThreadPool* t) {
 }
 
 bool pool_schedule(ThreadPool* t, USAGovClickTask *task) {
-	/* YOUR CODE GOES HERE */
+    // if queue can accept more tasks, enqueue and wake up worker
     if (queue_length(t->q) >= MAX_TASKS) {
         return false; // drop task
     } else {
-        pthread_mutex_lock(&t->m); // lock pool thread (queue) 
-        queue_enqueue(t->q, task); // push to queue
-        // conditional for if queue is empty?
+        pthread_mutex_lock(&t->m);  
+        queue_enqueue(t->q, task); 
         pthread_mutex_unlock(&t->m);
         pthread_cond_signal(&t->cvQueueNonEmpty);
         return true;
@@ -112,14 +111,13 @@ bool pool_schedule(ThreadPool* t, USAGovClickTask *task) {
 
 
 void pool_stop(ThreadPool* t) {
-	/* YOUR CODE GOES HERE */
     void* res;
     int i;
     t->stop = true;
     for (i = 0; i < t->numWorkers; i++) {
         pthread_cond_signal(&t->cvQueueNonEmpty);
-    } // ensure each worker exits function (wakes up, stop = true, returns null) 
+    } // ensure each worker exits function
     for (i = 0; i < t->numWorkers; i++) {
         pthread_join(t->workers[i]->thd, &res);
-    } // join to ensure all workers have exited before ending
+    }   
 }
