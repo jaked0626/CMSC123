@@ -35,19 +35,17 @@ void worker_start(WorkerThread* t) {
 void* worker_run(void* tv) {
     WorkerThread* t = (WorkerThread*)tv;
     ThreadPool* pool = t->pool;
-    /* YOUR CODE GOES HERE */
     while(!pool->stop){
         pthread_mutex_lock(&pool->m);
         while (queue_length(pool->q) <= 0 && !pool->stop) { // queue is empty
             pthread_cond_wait(&pool->cvQueueNonEmpty,
-                            &pool->m);
-            // printf("stopped waiting\n"); 
+                            &pool->m); 
             if(pool->stop) {
                 pthread_mutex_unlock(&pool->m);
-                return NULL; // conditional to break function when pool_stop is called
+                return NULL; // exits function when pool_stop is called
             }
         }
-        USAGovClickTask* task = queue_dequeue(pool->q); // queue is locked at this point
+        USAGovClickTask* task = queue_dequeue(pool->q); // pool is locked
         pthread_mutex_unlock(&pool->m);
         task_run(task);
     }

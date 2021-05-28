@@ -113,7 +113,7 @@ bool pool_schedule(ThreadPool* t, USAGovClickTask *task) {
 void pool_stop(ThreadPool* t) {
     void* res;
     int i;
-    t->stop = true;
+    t->stop = true; // signals exit to workers
     for (i = 0; i < t->numWorkers; i++) {
         pthread_cond_signal(&t->cvQueueNonEmpty);
     } // ensure each worker exits function
