@@ -68,6 +68,10 @@ typedef struct ThreadPool {
 	// Condition variable to notify idling threads when the
 	// queue goes from empty to non-empty
 	pthread_cond_t cvQueueNonEmpty;
+
+	// Boolean indicating pool_stop employed
+	bool stop;
+	
 } ThreadPool;
 
 // Constructor

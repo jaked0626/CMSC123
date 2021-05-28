@@ -66,10 +66,12 @@ ThreadPool* pool_init(int numWorkers) {
     t->workers = (WorkerThread**)malloc(sizeof(WorkerThread*)*numWorkers);
     pthread_mutex_init(&t->m, NULL);
     pthread_cond_init(&t->cvQueueNonEmpty, NULL);
+    t->stop = false;  // added boolean indicator for pool_stop
     
     t->q = (TaskQueue*)malloc(sizeof(TaskQueue));
     t->q->length = 0;
     t->q->head = t->q->tail = NULL;
+
     
     for (i = 0; i < numWorkers; i++) {
         t->workers[i] = worker_init(t);
@@ -108,13 +110,16 @@ bool pool_schedule(ThreadPool* t, USAGovClickTask *task) {
     }
 }
 
-/*void pool_stop(ThreadPool* t) {
-	/* YOUR CODE GOES HERE 
-    bool res;
+
+void pool_stop(ThreadPool* t) {
+	/* YOUR CODE GOES HERE */
+    void* res;
     int i;
+    t->stop = true;
     for (i = 0; i < t->numWorkers; i++) {
         pthread_cond_signal(&t->cvQueueNonEmpty);
-        pthread_join(t)
-    }
-    
-}*/
+    } // ensure each worker exits function (wakes up, stop = true, returns null) 
+    for (i = 0; i < t->numWorkers; i++) {
+        pthread_join(t->workers[i]->thd, &res);
+    } // join to ensure all workers have exited before ending
+}

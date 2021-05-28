@@ -47,6 +47,10 @@ void* worker_run(void* tv) {
                                             Repeats check while -> unlock -> sleep 
                                             -> wake -> lock -> check while -> 
                                             run -> unlock */
+            if(pool->stop) {
+                pthread_mutex_unlock(&pool->m);
+                return NULL; // conditional to break function when pool_stop is called
+            }
         }
         USAGovClickTask* task = queue_dequeue(pool->q); // queue is locked at this point
         pthread_mutex_unlock(&pool->m);
