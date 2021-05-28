@@ -35,18 +35,12 @@ void worker_start(WorkerThread* t) {
 void* worker_run(void* tv) {
     WorkerThread* t = (WorkerThread*)tv;
     ThreadPool* pool = t->pool;
-
     /* YOUR CODE GOES HERE */
-    while(1){
+    while(!pool->stop){
         pthread_mutex_lock(&pool->m);
-        while (queue_length(pool->q) <= 0) { // queue is empty
+        while (queue_length(pool->q) <= 0 && !pool->stop) { // queue is empty
             pthread_cond_wait(&pool->cvQueueNonEmpty,
-                            &pool->m); /* wakes up if nonempty, 
-                                            checks to see again if nonempty, 
-                                            and moves on. 
-                                            Repeats check while -> unlock -> sleep 
-                                            -> wake -> lock -> check while -> 
-                                            run -> unlock */
+                            &pool->m); 
             if(pool->stop) {
                 pthread_mutex_unlock(&pool->m);
                 return NULL; // conditional to break function when pool_stop is called
