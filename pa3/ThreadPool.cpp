@@ -108,6 +108,8 @@ bool pool_schedule(ThreadPool* t, USAGovClickTask *task) {
         return true;
     }
 }
+/*** GRADER COMMENT: Lock before checking the length of the queue (incase something changes)
+ *   PENALTY: -7 points */
 
 
 void pool_stop(ThreadPool* t) {

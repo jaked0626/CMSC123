@@ -1,0 +1,26 @@
+Points:
+    - Data thread-safe:
+        Points Possible: 20
+        Points Obtained: 16
+
+    - pool_schedule:
+        Points Possible: 30
+        Points Obtained: 23
+
+    - worker_run:
+        Points Possible: 30
+        Points Obtained: 30
+
+    - pool_stop:
+        Points Possible: 20
+        Points Obtained: 20
+
+Total Points: 89 / 100
+
+Comments: >
+    thread-safe:
+        -You don't initialize the mutex (either with pthread_mutex_init() or by setting
+         the mutex variable equal to PTHREAD_MUTEX_INITIALIZER) -4 points
+
+    pool_schedule:
+        -Lock before checking length of the queue (incase something changes) -7 points

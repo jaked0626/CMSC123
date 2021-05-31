@@ -21,6 +21,8 @@ USAGovClickData* data_init() {
     t->numClicks = 0;
     t->numNew = 0;
     
+    /*** GRADER COMMENT: You should initialize the mutex here with pthread_mutex_init()
+     *   PENALTY: -4 pts */ 
     return t;
 }
 
