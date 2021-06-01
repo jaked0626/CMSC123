@@ -1,0 +1,37 @@
+Points:
+    - Test cases:
+        Points Possible: 35
+        Points Obtained: 
+
+    - Style:
+        Points Possible: 10
+        Points Obtained: 
+
+    - Max two nested loops:
+        Points Possible: 10
+        Points Obtained: 
+
+    - Appropriate decomposition:
+        Points Possible: 10
+        Points Obtained: 
+
+    - Correctly identify domination:
+        Points Possible: 10
+        Points Obtained: 
+
+    - Remove dominated rows and columns:
+        Points Possible: 10
+        Points Obtained: 
+
+    - Stop when no further reductions:
+        Points Possible: 10
+        Points Obtained: 
+
+    - Simple and elegant approach:
+        Points Possible: 5
+        Points Obtained: 
+
+Total Points: 100/ 100
+
+Comments: >
+    None

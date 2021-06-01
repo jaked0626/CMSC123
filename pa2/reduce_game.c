@@ -59,6 +59,8 @@ void iterate_rows(game_t g) {
         remove_row_game(g, x);
         i--; // decrement i since rows move up
         break; // break loop of j, move to next i
+        //GRADER: Well done trying the slightly harder approach of
+        //removing all columns and rows in a single pass. 
       }
       else if (x == j) {
         remove_row_game(g, x);
