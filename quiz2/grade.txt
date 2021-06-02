@@ -1,0 +1,21 @@
+CMSC 12300, Spring 2021
+Quiz 2
+
+Problem 1: row_matches_col
+Great
+10/10
+
+Problem 2: col_palindrome
+Off-by-one error in loop termination condition for even-length columns; will not check last spot before middle. -1
+9/10
+
+Problem 3: alternator
+This produces 1s and 0s in the opposite locations. -2
+8/10
+
+Problem 4: horiz_run
+Excellent
+20/20
+
+
+TOTAL 47/50
