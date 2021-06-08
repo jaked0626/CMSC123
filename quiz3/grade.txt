@@ -1,0 +1,16 @@
+CMSC 12300, Spring 2021
+Quiz 3
+
+General deductions
+None
+
+Task 1: thread-safety
+Great
+20/20
+
+Task 2: waiting
+Great
+20/20
+
+
+TOTAL 40/40
